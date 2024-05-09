@@ -2,7 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session'); // Importar el módulo de sesión
-const { exRouter } = require('./routes/example.routes'); 
+const { portalRouter } = require('./routes/portal.routes'); 
 const port = require('./config');
 
 const app = express();
@@ -19,14 +19,14 @@ app.use(express.json());
 app.use(cors());
 
 // Configuración de middleware de sesión
-app.use(session({
-  secret: 'QKRJ12345', 
-  resave: false,
-  saveUninitialized: false,
-}));
+// app.use(session({
+//   secret: 'QKRJ12345', 
+//   resave: false,
+//   saveUninitialized: false,
+// }));
 
 // Rutas
-app.use(exRouter); 
+app.use(portalRouter); 
 
 app.use(express.static('views'));
 
