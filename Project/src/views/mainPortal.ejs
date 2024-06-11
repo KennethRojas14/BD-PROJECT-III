@@ -14,65 +14,56 @@
   <!-- Referencia al archivo de estilos CSS -->
   <link rel="stylesheet" href="/css/style.css">
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
-
-  <title>Portal principal</title>
+  <title>Lista de facturas</title>
 
 </head>
 
 <body>
-
-  <!-- form con input y boton para realizar busqueda por numero de telefono -->
-  <div class="container mb-2" style="margin-top: 4%;">
-    <nav class="navbar bg-dark" style="color: aliceblue;">
+  <div class="container mt-3 mb-2">
+    <nav class="navbar navbar-dark" style="background: #424242;">
       <div class="container-fluid">
-        <span class="navbar-brand mb-0 h3 col-2">Numero de teléfono:</span>
-        <!-- <form class="form" action="/listEmployees" method="POST"> -->
-        <form class="form-inline">
-
-          <input class="form-control mr-sm-2 col-9" type="search" name="contentSearch" placeholder="Buscar...">
-          <button title="Buscar" class="btn btn-outline-light col-2 ml-1" type="submit"><i
+        <span class="navbar-brand mb-0 h1 col-0">Facturas</span>
+        <form id="CheckNumberPhone" action="/portal"  class="form-inline" method="POST">
+          <input class="form-control mr-sm-2" type="search" name="SearchNumber"
+            placeholder="Buscar...">
+          <button title="Buscar" class="btn btn-outline-light my-2 my-sm-0 mr-sm-2" type="submit"><i
               class='bx bx-search'></i></button>
-
-        </form>
+          </form>
       </div>
     </nav>
   </div>
 
   <!-- Tabla que contiene las facturas -->
-  <div class="container mt-3">
-    <h5>Facturas:</h5>
-    <table class="table table-hover table-dark">
-      <thead class="thead-dark"></thead>
-      <tr>
-        <th scope="col">Fecha</th>
-        <th scope="col">Tipo Detalle</th>
-        <th class="cont-center" scope="col">Detalle</th>
-      </tr>
+  <div class="container mt-4">
+    <h2 class="mb-4">Facturas</h2>
+
+    <!-- Tabla de facturas -->
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Fecha de la Factura</th>
+          <th scope="col">Fecha de Pago</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Total a Pagar</th>
+        </tr>
       </thead>
       <tbody>
-        <tr>
-
-          <td>
-            ...
-          </td>
-          <td>
-            ...
-          </td>
-          <td class="cont-center">
-            ...
-          </td>
-
-        </tr>
+        <% invoices.forEach(invoice=> { %>
+          <tr>
+            <td><%= invoice.InvoiceDay.toISOString().slice(0, 10) %></td>
+            <td><%= invoice.PaymentDate.toISOString().slice(0, 10) %></td>
+            <td><%= invoice.IsPending ? 'Pendiente' : 'Pagada' %></td>
+            <td>$ <%= invoice.Total.toFixed(2) %></td>
+            <td class="cont-center">
+              <form class="ml-2" action="" method="GET">
+                <a title="Ver detalles" class="btn btn-outline-light ml-2"><i
+                    class='bx bxs-edit'></i></a>
+          </tr>
+        <% }); %>
       </tbody>
     </table>
-
   </div>
+
 
   <!-- Boton que permite desplegar ventana emergente -->
   <div class="dropdown">

@@ -1,7 +1,7 @@
 //En este archivo se hacen las configuraciones de express
 const express = require('express');
 const cors = require('cors');
-const session = require('express-session'); // Importar el módulo de sesión
+//const session = require('express-session'); // Importar el módulo de sesión
 const { portalRouter } = require('./routes/portal.routes'); 
 const port = require('./config');
 
