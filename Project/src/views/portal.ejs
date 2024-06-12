@@ -14,13 +14,22 @@
   <!-- Referencia al archivo de estilos CSS -->
   <link rel="stylesheet" href="/css/style.css">
 
-  <title>Lista de facturas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+
+  <title>Portal principal</title>
 
 </head>
 
 <body>
-  <div class="container mt-3 mb-2">
-    <nav class="navbar navbar-dark" style="background: #424242;">
+
+  <!-- form con input y boton para realizar busqueda por numero de telefono -->
+  <div class="container mb-2" style="margin-top: 4%;">
+    <nav class="navbar bg-dark" style="color: aliceblue;">
       <div class="container-fluid">
         <span class="navbar-brand mb-0 h1 col-0">Facturas</span>
         <form id="CheckNumberPhone" action="/portal"  class="form-inline" method="POST">
@@ -28,19 +37,18 @@
             placeholder="Buscar...">
           <button title="Buscar" class="btn btn-outline-light my-2 my-sm-0 mr-sm-2" type="submit"><i
               class='bx bx-search'></i></button>
-          </form>
+
+        </form>
       </div>
     </nav>
   </div>
 
   <!-- Tabla que contiene las facturas -->
-  <div class="container mt-4">
-    <h2 class="mb-4">Facturas</h2>
-
-    <!-- Tabla de facturas -->
-    <table class="table table-hover">
-      <thead class="thead-dark">
-        <tr>
+  <div class="container mt-3">
+    <h5>Facturas:</h5>
+    <table class="table table-hover table-dark">
+      <thead class="thead-dark"></thead>
+      <tr>
           <th scope="col">Fecha de la Factura</th>
           <th scope="col">Fecha de Pago</th>
           <th scope="col">Estado</th>
@@ -62,20 +70,21 @@
         <% }); %>
       </tbody>
     </table>
+
   </div>
 
-
-  <!-- Boton que permite desplegar ventana emergente -->
-  <div class="dropdown">
+<div class="dropdown">
+  <form id="CheckAccountState" action="/accountStates" class="form-inline" method="POST">
     <button class="btn btn-outline-light bg-dark dropdown-toggle" type="button" data-bs-toggle="dropdown"
       aria-expanded="false" title="Estados de cuenta" style="position: fixed; top: 7%; left: 3%;">
       <i class='bx bx-list-ul'></i>
     </button>
     <ul class="dropdown-menu">
-      <li><a class="dropdown-item btn-outline-dark">Cuenta empresa Y</a></li>
-      <li><a class="dropdown-item btn-outline-dark">Cuenta empresa X</a></li>
+      <li><a href="/accountStates" class="dropdown-item btn-outline-dark" href="#">Cuenta empresa Y</a></li>
+      <li><a href="/accountStates" class="dropdown-item btn-outline-dark" href="#">Cuenta empresa X</a></li>
     </ul>
-  </div>
+  </form>
+</div>
 
 </body>
 
