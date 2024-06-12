@@ -6,46 +6,44 @@ const path = require("path");
 const root = async (req, res) => {
   // if (startSimulation()) { res.redirect("Portal"); }
 
-   try {
-    // Ruta relativa del archivos catalogos.xml y operacines.xml
-    const relativeRouteUp = "../catalogos.xml";
-    const relativeRouteOp = "../operaciones.xml";
-    // Unir la ruta relativa con la carpeta actual (__dirname)
-    const completeRouteOp = path.join(__dirname, relativeRouteOp);
-    const completeRouteUp = path.join(__dirname, relativeRouteUp);
+  try {
+  // Ruta relativa del archivos catalogos.xml y operacines.xml
+  const relativeRouteUp = "../catalogos.xml";
+  const relativeRouteOp = "../operaciones.xml";
+  // Unir la ruta relativa con la carpeta actual (__dirname)
+  const completeRouteOp = path.join(__dirname, relativeRouteOp);
+  const completeRouteUp = path.join(__dirname, relativeRouteUp);
 
-    //Obtenemos conexion a la base de datos
-    const pool = await getConnection();
+  //Obtenemos conexion a la base de datos
+  const pool = await getConnection();
 
-    // Llamada al procedimiento almacenado Simulation 
-    const resultUploadXML = await pool
-    .request()
-    .input("xmlFilePath", completeRouteUp)
-    .output("OutResultCode", 0)
-    .execute("UploadCatalogs");
+  // Llamada al procedimiento almacenado Simulation 
+  const resultUploadXML = await pool
+  .request()
+  .input("xmlFilePath", completeRouteUp)
+  .output("OutResultCode", 0)
+  .execute("UploadCatalogs");
 
-    // Llamada al procedimiento almacenado Simulation 
-    const resultSimulation = await pool
-    .request()
-    .input("xmlFilePath", completeRouteOp)
-    .output("OutResultCode", 0)
-    .execute("Simulation");
-    // Cerramos conexion
-    pool.close();
-    // Comprobamos el resultado de llamar al procedimieno almacenado
-    if (resultSimulation.output.OutResultCode == 0 && resultUploadXML.output.OutResultCode == 0) {
-      console.log("Simulacion y carga de catalogos exitosa!!!");
-    } else {
-      console.log("Algo salio mal en la simulacion!!?!");
-    }
-   } catch (error) {
+  // Llamada al procedimiento almacenado Simulation 
+  const resultSimulation = await pool
+  .request()
+  .input("xmlFilePath", completeRouteOp)
+  .output("OutResultCode", 0)
+  .execute("Simulation");
+  // Cerramos conexion
+  pool.close();
+  // Comprobamos el resultado de llamar al procedimieno almacenado
+  if (resultSimulation.output.OutResultCode == 0 && resultUploadXML.output.OutResultCode == 0) {
+    console.log("Simulacion y carga de catalogos exitosa!!!");
+  } else {
+    console.log("Algo salio mal en la simulacion!!?!");
+  }
+  } catch (error) {
   //   console.log("\n\t- ERROR en funcion getPosition\n");
-     console.log("\n\t-", error, "\n");
-   }
+    console.log("\n\t-", error, "\n");
+  }
   res.redirect("portal");
 };
-
-
 
 const portalUser = async (req, res) => {
   res.render("portal", { invoices: [], alertVisibility: false });
