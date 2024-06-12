@@ -9,5 +9,4 @@ portalRouter.get('/', root);
 portalRouter.get('/portal', portalUser);
 portalRouter.post('/portal', CheckNumberPhone);
 
-
 module.exports = { portalRouter };
